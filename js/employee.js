@@ -31,7 +31,7 @@ function newEmployee(){
     {
       type: 'input',
       name: 'manager_id',
-      message: `Enter the employee's manage id number`
+      message: `Enter the employee's manager id number`
     }
   ])
   .then(answers => {
@@ -60,7 +60,7 @@ function viewEmployees(){
       type: 'list',
       name: 'view_choice',
       message: `View all employees or search for specific employee?`,
-      choices: ["All Employees", "Search for specific employee"]
+      choices: ["All Employees", "Search for all employees under a manager"]
     }
   ]).then(answers => {
     console.log(answers)
@@ -73,12 +73,32 @@ function viewEmployees(){
           function(err, res) {
             if (err) throw err;
             console.table(res)
+            connection.end();
+
           })
-        }  
-      connection.end();
-    ``});
+        }
+        if (answers.view_choice === "Search for all employees under a manager"){
+          inquirer
+          .prompt([{
+            type : 'input',
+            name : 'id',
+            message: `Enter a manager id`
+          }]).then(answers =>{
+            var query = connection.query(
+              `SELECT * FROM employee WHERE manager_id=?`, answers.id,
+              function(err, res) {
+                if (err) throw err;
+                console.table(res)
+                connection.end();
+              })
+            }
+          )
+        }
+    });
   })
 }
+
+
 
 
 module.exports = { 

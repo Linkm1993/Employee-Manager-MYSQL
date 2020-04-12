@@ -26,9 +26,6 @@ function newDepartment(){
     .then(answers => {
         connection.connect(function(err) {
             if (err) throw err;
-
-            console.log("connected as id " + connection.threadId + "\n");
-
             var query = connection.query(
               "INSERT INTO department SET ?",
               {
@@ -43,30 +40,18 @@ function newDepartment(){
 }
 
 function viewDepartments(){
-    inquirer
-      .prompt([ {
-        type: 'list',
-        name: 'view_choice',
-        message: `View all departments or search for specific department?`,
-        choices: ["All Departments", "Search for specific department"]
-      }
-    ]).then(answers => {
-      console.log(answers)
-  
       connection.connect(function(err) {
         if (err) throw err;
-        if (answers.view_choice === "All Departments") {
             var query = connection.query(
               "SELECT * FROM department",
               function(err, res) {
                 if (err) throw err;
                 console.table(res)
               })
-            }  
-          connection.end();
-        });
-    })
-  }
+        connection.end();
+      });
+    }
+  
 
 module.exports = {
     newDepartment : newDepartment,

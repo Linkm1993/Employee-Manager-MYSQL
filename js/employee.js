@@ -35,11 +35,10 @@ function newEmployee(){
     }
   ])
   .then(answers => {
-    console.log(JSON.stringify(answers, null, '  '));
 
     connection.connect(function(err) {
       if (err) throw err;
-      console.log("connected as id " + connection.threadId + "\n");
+
       var query = connection.query(
         "INSERT INTO employee SET ?",
         {
@@ -56,8 +55,30 @@ function newEmployee(){
 }
 
 function viewEmployees(){
-  console.log("Testing")
+  inquirer
+    .prompt([ {
+      type: 'list',
+      name: 'view_choice',
+      message: `View all departments or search for specific department?`,
+      choices: ["All Employees", "Search for specific employee"]
+    }
+  ]).then(answers => {
+    console.log(answers)
+
+    connection.connect(function(err) {
+      if (err) throw err;
+
+      var query = connection.query(
+        "SELECT * FROM employee",
+        function(err, res) {
+          if (err) throw err;
+          console.table(res)
+        })
+        connection.end();
+      });
+  })
 }
+
 
 module.exports = { 
   newEmployee: newEmployee,

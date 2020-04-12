@@ -26,6 +26,10 @@ function startProgram(){
     else if(answers.action === 'Add Department'){
       department.newDepartment()
     }
+
+    else if(answers.action === 'View Departments'){
+      department.viewDepartments()
+    }
   })
 }
 

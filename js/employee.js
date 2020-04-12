@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "",
+  password: "RavexSam741",
   database: "company_db"
 });
 
@@ -59,7 +59,7 @@ function viewEmployees(){
     .prompt([ {
       type: 'list',
       name: 'view_choice',
-      message: `View all departments or search for specific department?`,
+      message: `View all employees or search for specific employee?`,
       choices: ["All Employees", "Search for specific employee"]
     }
   ]).then(answers => {
@@ -67,15 +67,16 @@ function viewEmployees(){
 
     connection.connect(function(err) {
       if (err) throw err;
-
-      var query = connection.query(
-        "SELECT * FROM employee",
-        function(err, res) {
-          if (err) throw err;
-          console.table(res)
-        })
-        connection.end();
-      });
+      if (answers.view_choice === "All Employees") {
+        var query = connection.query(
+          "SELECT * FROM employee",
+          function(err, res) {
+            if (err) throw err;
+            console.table(res)
+          })
+        }  
+      connection.end();
+    ``});
   })
 }
 

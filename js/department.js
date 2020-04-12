@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "",
+  password: "RavexSam741",
   database: "company_db"
 });
 
@@ -42,6 +42,33 @@ function newDepartment(){
     })
 }
 
+function viewDepartments(){
+    inquirer
+      .prompt([ {
+        type: 'list',
+        name: 'view_choice',
+        message: `View all departments or search for specific department?`,
+        choices: ["All Departments", "Search for specific department"]
+      }
+    ]).then(answers => {
+      console.log(answers)
+  
+      connection.connect(function(err) {
+        if (err) throw err;
+        if (answers.view_choice === "All Departments") {
+            var query = connection.query(
+              "SELECT * FROM department",
+              function(err, res) {
+                if (err) throw err;
+                console.table(res)
+              })
+            }  
+          connection.end();
+        });
+    })
+  }
+
 module.exports = {
-    newDepartment : newDepartment
+    newDepartment : newDepartment,
+    viewDepartments : viewDepartments
 }

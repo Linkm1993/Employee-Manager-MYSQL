@@ -64,7 +64,12 @@ function viewRoles(){
       });
 }
 
+function updateEmployeeRole(){
+  console.log("testing")
+}
+
 module.exports = {
     newRole : newRole,
-    viewRoles: viewRoles
+    viewRoles: viewRoles,
+    updateEmployeeRole: updateEmployeeRole
 }

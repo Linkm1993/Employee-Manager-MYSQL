@@ -3,6 +3,7 @@ const mysql = require("mysql")
 const employee = require("./js/employee")
 const department = require("./js/department")
 const roles = require("./js/roles")
+const remove = require("./js/delete")
 
 
 function startProgram(){
@@ -11,7 +12,7 @@ function startProgram(){
       type: 'list',
       name: 'action',
       message: 'What would you like to do?',
-      choices: ['Add Employee', 'View Employees', 'Add Department', 'View Departments', "Add a new role", "Veiw Roles", "Update Employee Role", "Change Employee's Manager"],
+      choices: ['Add Employee', 'View Employees', 'Add Department', 'View Departments', "Add a new role", "Veiw Roles", "Update Employee Role", "Change Employee's Manager", "Remove something from database"],
     }
   ])
   .then(answers => {
@@ -43,8 +44,13 @@ function startProgram(){
     else if (answers.action === 'Update Employee Role'){
       roles.updateEmployeeRole()
     }
+
     else if (answers.action === "Change Employee's Manager"){
       employee.updateMangerID()
+    }
+
+    else if (answers.action === 'Remove something from database'){
+      remove.deleter()
     }
   })
 }

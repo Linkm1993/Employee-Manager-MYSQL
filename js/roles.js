@@ -36,7 +36,7 @@ function newRole(){
     .then(answers => {
         connection.connect(function(err) {
             if (err) throw err;
-            var query = connection.query(
+            let query = connection.query(
               "INSERT INTO employee_role SET ?",
               {
                 title: answers.title,
@@ -54,7 +54,7 @@ function newRole(){
 function viewRoles(){
     connection.connect(function(err) {
         if (err) throw err;
-            var query = connection.query(
+            let query = connection.query(
               "SELECT * FROM employee_role",
               function(err, res) {
                 if (err) throw err;
@@ -82,7 +82,7 @@ function updateEmployeeRole(){
     .then(answers => {
   connection.connect(function(err) {
     if (err) throw err;
-    var query = connection.query(
+    let query = connection.query(
       "UPDATE employee SET ? WHERE ?",
       [
         {

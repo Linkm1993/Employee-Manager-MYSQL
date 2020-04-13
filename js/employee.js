@@ -44,7 +44,7 @@ function newEmployee(){
     connection.connect(function(err) {
       if (err) throw err;
 
-      var query = connection.query(
+      let query = connection.query(
         "INSERT INTO employee SET ?",
         {
           first_name: answers.first_name,
@@ -74,7 +74,7 @@ function viewEmployees(){
     connection.connect(function(err) {
       if (err) throw err;
       if (answers.view_choice === "All Employees") {
-        var query = connection.query(
+        let query = connection.query(
           "SELECT * FROM employee",
           function(err, res) {
             if (err) throw err;
@@ -90,7 +90,7 @@ function viewEmployees(){
             name : 'id',
             message: `Enter a manager id`
           }]).then(answers =>{
-            var query = connection.query(
+            let query = connection.query(
               `SELECT * FROM employee WHERE manager_id=?`, answers.id,
               function(err, res) {
                 if (err) throw err;
@@ -104,10 +104,43 @@ function viewEmployees(){
   })
 }
 
+function updateMangerID(){
+  inquirer
+  .prompt([{
+    type : 'input',
+    name : 'employeeid',
+    message: `Enter the id of the employee you want to change`
+  },
+  {
+    type: 'input',
+    name : 'newmanger',
+    message: 'Enter the new manager id'
+  }
+  ]).then(answers =>{
+    let query = connection.query(
+      "UPDATE employee SET ? WHERE ?",
+      [
+        {
+          manager_id: answers.newmanger
+        },
+        {
+          id: answers.employeeid
+        }
+      ],
+      function(err, res) {
+        if (err) throw err;
+        console.table(res)
+        connection.end();
+    }
+    )
+  })
+}
+
 
 
 
 module.exports = { 
   newEmployee: newEmployee,
-  viewEmployees: viewEmployees
+  viewEmployees: viewEmployees,
+  updateMangerID : updateMangerID
   }

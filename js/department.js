@@ -26,7 +26,7 @@ function newDepartment(){
     .then(answers => {
         connection.connect(function(err) {
             if (err) throw err;
-            var query = connection.query(
+            let query = connection.query(
               "INSERT INTO department SET ?",
               {
                 name: answers.name,
@@ -42,7 +42,7 @@ function newDepartment(){
 function viewDepartments(){
       connection.connect(function(err) {
         if (err) throw err;
-            var query = connection.query(
+            let query = connection.query(
               "SELECT * FROM department",
               function(err, res) {
                 if (err) throw err;

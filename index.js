@@ -11,7 +11,7 @@ function startProgram(){
       type: 'list',
       name: 'action',
       message: 'What would you like to do?',
-      choices: ['Add Employee', 'View Employees', 'Add Department', 'View Departments', "Add a new role", "Veiw Roles", "Update Employee Role"],
+      choices: ['Add Employee', 'View Employees', 'Add Department', 'View Departments', "Add a new role", "Veiw Roles", "Update Employee Role", "Change Employee's Manager"],
     }
   ])
   .then(answers => {
@@ -42,6 +42,9 @@ function startProgram(){
 
     else if (answers.action === 'Update Employee Role'){
       roles.updateEmployeeRole()
+    }
+    else if (answers.action === "Change Employee's Manager"){
+      employee.updateMangerID()
     }
   })
 }

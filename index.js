@@ -11,7 +11,7 @@ function startProgram(){
       type: 'list',
       name: 'action',
       message: 'What would you like to do?',
-      choices: ['Add Employee', 'View Employees', 'Add Department', 'View Departments', "Add a new role", "Veiw Roles"],
+      choices: ['Add Employee', 'View Employees', 'Add Department', 'View Departments', "Add a new role", "Veiw Roles", "Update Employee Role"],
     }
   ])
   .then(answers => {
@@ -38,6 +38,10 @@ function startProgram(){
 
     else if(answers.action === 'Veiw Roles'){
       roles.viewRoles()
+    }
+
+    else if (answers.action === 'Update Employee Role'){
+      roles.updateEmployeeRole()
     }
   })
 }

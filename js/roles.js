@@ -65,7 +65,40 @@ function viewRoles(){
 }
 
 function updateEmployeeRole(){
-  console.log("testing")
+  inquirer
+      .prompt([ 
+        {
+          type: 'input',
+          name: 'firstname',
+          message: 'Enter the employee id you want to change'
+        },
+        
+        {
+        type: 'input',
+        name: 'newrole',
+        message: `Enter a new role number`
+      }
+    ])
+    .then(answers => {
+  connection.connect(function(err) {
+    if (err) throw err;
+    var query = connection.query(
+      "UPDATE employee SET ? WHERE ?",
+      [
+        {
+          role_id: answers.newrole
+        },
+        {
+          id: answers.firstname
+        }
+      ],
+      function(err, res) {
+        if (err) throw err;
+        console.table(res)
+        connection.end();      
+      })
+    });
+  })
 }
 
 module.exports = {

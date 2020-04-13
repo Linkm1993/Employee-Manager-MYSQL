@@ -48,6 +48,60 @@ function deleter(){
                       connection.end();
                     });
             })
+
+            
+        }
+
+        if (answers.selection === "Department"){
+            inquirer
+            .prompt([
+                {
+                    type: "input",
+                    name: "depid",
+                    message: 'Enter the id of the department you want to remove'
+                }
+            ]).then(answers =>{
+                connection.connect(function(err) {
+                    if (err) throw err;
+                    let query = connection.query(`DELETE FROM department WHERE ?`, [
+                        {
+                          id: answers.depid
+                        }],
+                    function(err, res) {
+                        if (err) throw err;
+                        console.table(res)
+                      })
+                      connection.end();
+                    });
+            })
+
+            
+        }
+
+        if (answers.selection === "Role"){
+            inquirer
+            .prompt([
+                {
+                    type: "input",
+                    name: "roleid",
+                    message: 'Enter the id of the role you want to remove'
+                }
+            ]).then(answers =>{
+                connection.connect(function(err) {
+                    if (err) throw err;
+                    let query = connection.query(`DELETE FROM employee_role WHERE ?`, [
+                        {
+                          id: answers.roleid
+                        }],
+                    function(err, res) {
+                        if (err) throw err;
+                        console.table(res)
+                      })
+                      connection.end();
+                    });
+            })
+
+            
         }
     })
 }

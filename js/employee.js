@@ -32,6 +32,11 @@ function newEmployee(){
       type: 'input',
       name: 'manager_id',
       message: `Enter the employee's manager id number`
+    },
+    {
+      type: 'input',
+      name: 'role_id',
+      message: 'Please enter the role id for their job'
     }
   ])
   .then(answers => {
@@ -44,7 +49,8 @@ function newEmployee(){
         {
           first_name: answers.first_name,
           last_name: answers.last_name,
-          manager_id: answers.manager_id
+          manager_id: answers.manager_id,
+          role_id: answers.role_id
         },
         function(err, res) {
           if (err) throw err;

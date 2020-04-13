@@ -2,6 +2,7 @@ const inquirer = require("inquirer");
 const mysql = require("mysql")
 const employee = require("./js/employee")
 const department = require("./js/department")
+const roles = require("./js/roles")
 
 
 function startProgram(){
@@ -10,7 +11,7 @@ function startProgram(){
       type: 'list',
       name: 'action',
       message: 'What would you like to do?',
-      choices: ['Add Employee', 'View Employees', 'Add Department', 'View Departments'],
+      choices: ['Add Employee', 'View Employees', 'Add Department', 'View Departments', "Add a new role", "Veiw Roles"],
     }
   ])
   .then(answers => {
@@ -29,6 +30,14 @@ function startProgram(){
 
     else if(answers.action === 'View Departments'){
       department.viewDepartments()
+    }
+
+    else if(answers.action === 'Add a new role'){
+      roles.newRole()
+    }
+
+    else if(answers.action === 'Veiw Roles'){
+      roles.viewRoles()
     }
   })
 }
